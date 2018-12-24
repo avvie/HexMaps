@@ -8,7 +8,27 @@ public class HexCell : MonoBehaviour{
     [SerializeField]
     HexCell[] neighbours;
 
-    public HexCell GetNeighbor(HexDirection direction) {
+	public RectTransform uiRect;
+
+	int elevation;
+
+	public int Elevation {
+		get {
+			return elevation;
+		}
+		set {
+			elevation = value;
+			Vector3 position = transform.localPosition;
+			position.y = value * HexStatics.elevationStep;
+			transform.localPosition = position;
+
+			Vector3 uiPosition = uiRect.localPosition;
+			uiPosition.z = elevation * -HexStatics.elevationStep;
+			uiRect.localPosition = uiPosition;
+		}
+	}
+
+	public HexCell GetNeighbor(HexDirection direction) {
         return neighbours[(int)direction];
     }
 

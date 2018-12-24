@@ -10,6 +10,8 @@ public static class HexStatics{
     public const float solidFactor = 0.75f;
     public const float blendFactor = 1f - solidFactor;
 
+	public const float elevationStep = 5f;
+
     //orientation with point up
     static Vector3[] corners = {
         new Vector3(0, 0, outerRadius),

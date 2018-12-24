@@ -6,10 +6,12 @@ public struct HexCoordinates{
     [SerializeField]
 	private int x, z;
 
-    public int X { get {
+    public int X {
+		get {
 			return x;
 		}}
-    public int Z { get {
+    public int Z {
+		get {
 			return z;
 		}}
 
