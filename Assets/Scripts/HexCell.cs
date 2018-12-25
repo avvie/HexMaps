@@ -1,16 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class HexCell : MonoBehaviour{
-    public HexCoordinates coordinates;
-    public Color color;
-    [SerializeField]
-    HexCell[] neighbours;
+public class HexCell : MonoBehaviour {
+
+	public HexCoordinates coordinates;
+
+	public Color color;
 
 	public RectTransform uiRect;
-
-	int elevation;
 
 	public int Elevation {
 		get {
@@ -19,22 +15,38 @@ public class HexCell : MonoBehaviour{
 		set {
 			elevation = value;
 			Vector3 position = transform.localPosition;
-			position.y = value * HexStatics.elevationStep;
+			position.y = value * HexMetrics.elevationStep;
 			transform.localPosition = position;
 
 			Vector3 uiPosition = uiRect.localPosition;
-			uiPosition.z = elevation * -HexStatics.elevationStep;
+			uiPosition.z = elevation * -HexMetrics.elevationStep;
 			uiRect.localPosition = uiPosition;
 		}
 	}
 
-	public HexCell GetNeighbor(HexDirection direction) {
-        return neighbours[(int)direction];
-    }
+	int elevation;
 
-    public void SetNeighbor(HexDirection direction, HexCell cell) {
-        neighbours[(int)direction] = cell;
-        cell.neighbours[(int)direction.Opposite()] = this;
-    }
+	[SerializeField]
+	HexCell[] neighbors;
 
+	public HexCell GetNeighbor (HexDirection direction) {
+		return neighbors[(int)direction];
+	}
+
+	public void SetNeighbor (HexDirection direction, HexCell cell) {
+		neighbors[(int)direction] = cell;
+		cell.neighbors[(int)direction.Opposite()] = this;
+	}
+
+	public HexEdgeType GetEdgeType (HexDirection direction) {
+		return HexMetrics.GetEdgeType(
+			elevation, neighbors[(int)direction].elevation
+		);
+	}
+
+	public HexEdgeType GetEdgeType (HexCell otherCell) {
+		return HexMetrics.GetEdgeType(
+			elevation, otherCell.elevation
+		);
+	}
 }
