@@ -17,8 +17,10 @@ public static class HexStatics{
 	public const float horizontalTerraceStepSize = 1f / terraceSteps;
 	public const float verticalTerraceStepSize = 1f / (terracesPerSlope + 1);
 
-    //orientation with point up
-    static Vector3[] corners = {
+	public static Texture2D noiseSource;
+
+	//orientation with point up
+	static Vector3[] corners = {
         new Vector3(0, 0, outerRadius),
         new Vector3(innerRadius, 0, 0.5f * outerRadius),
         new Vector3(innerRadius, 0, -0.5f * outerRadius),
